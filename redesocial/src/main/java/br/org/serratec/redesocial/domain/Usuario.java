@@ -12,8 +12,8 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
-@Table(name = "User")
-public class User {
+@Table(name = "usuario")
+public class Usuario {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -100,7 +100,7 @@ public class User {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		User other = (User) obj;
+		Usuario other = (Usuario) obj;
 		return Objects.equals(id, other.id);
 	}
 
