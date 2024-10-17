@@ -1,4 +1,4 @@
-package br.org.serratec.redesocial.DTO;
+package br.org.serratec.redesocial.dto;
 
 import br.org.serratec.redesocial.domain.Usuario;
 
