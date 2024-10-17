@@ -1,6 +1,7 @@
 package br.org.serratec.redesocial.domain;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Column;
@@ -36,8 +37,8 @@ public class Usuario {
 	private String senha;
 
 	@Column(name = "data_nascimento", nullable = false)
-	@NotBlank(message = "O campo deve ser preenchido!")
 	private LocalDate dataNascimento;
+	
 
 	public Usuario() {
 	}

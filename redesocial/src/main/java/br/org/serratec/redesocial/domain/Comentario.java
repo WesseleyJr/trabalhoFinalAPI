@@ -3,8 +3,6 @@ package br.org.serratec.redesocial.domain;
 import java.time.LocalDate;
 import java.util.Objects;
 
-import org.hibernate.annotations.ManyToAny;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Column;
@@ -13,7 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 
@@ -29,16 +27,14 @@ public class Comentario {
 	@Column(nullable=false)
 	private String texto;
 	
-	@NotBlank(message="Insira a data")
 	@Column(nullable= false)
 	private LocalDate dataComentario;
 	
-	@JsonBackReference
-	@ManyToAny
+	@ManyToOne
 	@JoinColumn(name = "id_post")
 	private Post post;
 	
-	@OneToMany
+	@ManyToOne
 	@JoinColumn(name = "id_usuario")
 	private Usuario usuario;
 
@@ -64,6 +60,22 @@ public class Comentario {
 
 	public void setDataComentario(LocalDate dataComentario) {
 		this.dataComentario = dataComentario;
+	}
+
+	public Post getPost() {
+		return post;
+	}
+
+	public void setPost(Post post) {
+		this.post = post;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	@Override

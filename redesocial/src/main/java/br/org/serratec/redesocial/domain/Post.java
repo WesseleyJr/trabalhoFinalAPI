@@ -12,6 +12,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
@@ -31,11 +32,10 @@ public class Post {
 	@Column
 	private LocalDate dataCriacao;
 
-	@OneToMany
+	@ManyToOne
 	@JoinColumn(name = "id_usuario")
 	private Usuario usuario;
 
-	@JsonManagedReference
 	@OneToMany(mappedBy = "post")
 	private List<Comentario> comentarios;
 
