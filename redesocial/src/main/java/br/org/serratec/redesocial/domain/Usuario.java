@@ -39,6 +39,18 @@ public class Usuario {
 	@NotBlank(message = "O campo deve ser preenchido!")
 	private LocalDate dataNascimento;
 
+	public Usuario() {
+	}
+
+	public Usuario(Long id, String nome, String sobrenome, String email, String senha, LocalDate dataNascimento) {
+		this.id = id;
+		this.nome = nome;
+		this.sobrenome = sobrenome;
+		this.email = email;
+		this.senha = senha;
+		this.dataNascimento = dataNascimento;
+	}
+
 	public Long getId() {
 		return id;
 	}
