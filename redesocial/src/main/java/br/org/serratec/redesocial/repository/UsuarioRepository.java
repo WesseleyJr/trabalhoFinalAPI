@@ -18,4 +18,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 	Page<Usuario> buscarPorEmail(String paramEmail, Pageable pegeable);
 
 	Usuario findByEmail(String email);
+	Usuario findbySenha(String senha);
+
 }
+
