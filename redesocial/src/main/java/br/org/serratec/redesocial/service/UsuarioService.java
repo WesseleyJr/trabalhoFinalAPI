@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.org.serratec.redesocial.domain.Usuario;
@@ -20,8 +19,8 @@ public class UsuarioService {
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 	
-	@Autowired
-	private BCryptPasswordEncoder encoder;
+//	@Autowired
+//	private BCryptPasswordEncoder encoder;
 
 	public List<Usuario> findAll() {
 		List<Usuario> usuarios = usuarioRepository.findAll();
@@ -51,7 +50,7 @@ public class UsuarioService {
 		Usuario usuario = new Usuario();
 		usuario.setNome(user.getNome());
 		usuario.setEmail(user.getEmail());
-		usuario.setSenha(encoder.encode(user.getSenha()));
+//		usuario.setSenha(encoder.encode(user.getSenha()));
 		return new UsuarioDTO(usuarioRepository.save(usuario));
 
 	}
