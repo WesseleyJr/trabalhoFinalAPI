@@ -7,5 +7,5 @@ import br.org.serratec.redesocial.domain.Post;
 
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long> {
-
+	
 }
