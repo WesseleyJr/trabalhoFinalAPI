@@ -3,7 +3,6 @@ package br.org.serratec.redesocial.controller;
 import java.util.List;
 import java.util.Optional;
 
-import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.org.serratec.redesocial.domain.Usuario;
+import br.org.serratec.redesocial.dto.UsuarioDTO;
 import br.org.serratec.redesocial.repository.UsuarioRepository;
 import br.org.serratec.redesocial.service.UsuarioService;
 import jakarta.validation.Valid;
@@ -33,13 +33,13 @@ public class UsuarioController {
 	private UsuarioRepository usuarioRepository;
 
 	@GetMapping
-	public ResponseEntity<List<Usuario>> listar() {
+	public ResponseEntity<List<UsuarioDTO>> listar() {
 		return ResponseEntity.ok(usuarioService.findAll());
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Usuario> buscar(@PathVariable Long id) {
-		Optional<Usuario> usuarioOpt = usuarioRepository.findById(id);
+		Optional<Usuario> usuarioOpt = usuarioService.buscar(id);
 		if (usuarioOpt.isPresent()) {
 			return ResponseEntity.ok(usuarioOpt.get());
 		}

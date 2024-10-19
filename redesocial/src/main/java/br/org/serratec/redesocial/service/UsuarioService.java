@@ -18,34 +18,26 @@ public class UsuarioService {
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;
-	
+
 //	@Autowired
 //	private BCryptPasswordEncoder encoder;
 
-	public List<Usuario> findAll() {
+	public List<UsuarioDTO> findAll() {
 		List<Usuario> usuarios = usuarioRepository.findAll();
-		return usuarios;
+		List<UsuarioDTO> usuariosDTO = usuarios.stream().map(UsuarioDTO::new).toList();
+		return usuariosDTO;
 	}
 
 	public Optional<Usuario> buscar(Long id) {
 		return usuarioRepository.findById(id);
 	}
 
-	public Usuario inserir(Usuario user) throws EmailException {
-
-		Usuario usuario = usuarioRepository.findByEmail(user.getEmail());
-		if (usuario != null) {
-			throw new EmailException("Email já existente");
-		}
-		return usuarioRepository.save(user);
-	}
-
-	public UsuarioDTO inserir(UsuarioInserirDTO user) throws EmailException {
+	public UsuarioDTO inserir(UsuarioInserirDTO user) throws EmailException, SenhaException {
 		if (!user.getSenha().equalsIgnoreCase(user.getConfirmaSenha())) {
-		throw new SenhaException("Senha e Confirma Senha não são iguais");
+			throw new SenhaException("Senha e Confirma Senha não são iguais");
 		}
-		if (usuarioRepository.findByEmail(user.getEmail())!=null) {
-		throw new EmailException("Email já existente");
+		if (usuarioRepository.findByEmail(user.getEmail()) != null) {
+			throw new EmailException("Email já existente");
 		}
 		Usuario usuario = new Usuario();
 		usuario.setNome(user.getNome());
@@ -54,5 +46,5 @@ public class UsuarioService {
 		return new UsuarioDTO(usuarioRepository.save(usuario));
 
 	}
-	
+
 }

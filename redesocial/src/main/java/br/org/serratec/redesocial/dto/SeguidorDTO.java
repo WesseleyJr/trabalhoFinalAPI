@@ -1,12 +1,12 @@
 package br.org.serratec.redesocial.dto;
 
 import java.time.LocalDate;
-import java.util.Objects;
 
+import br.org.serratec.redesocial.domain.Relacionamento;
 import br.org.serratec.redesocial.domain.Usuario;
 
 public class SeguidorDTO {
-	
+
 	private Long id;
 	private LocalDate dataInicioSeguimento;
 	private Usuario usuarioSeguidor;
@@ -16,11 +16,17 @@ public class SeguidorDTO {
 	}
 
 	public SeguidorDTO(Long id, LocalDate dataInicioSeguimento, Usuario usuarioSeguidor, Usuario usuarioSeguido) {
-		super();
 		this.id = id;
 		this.dataInicioSeguimento = dataInicioSeguimento;
 		this.usuarioSeguidor = usuarioSeguidor;
 		this.usuarioSeguido = usuarioSeguido;
+	}
+
+	public SeguidorDTO(Relacionamento relacionamento) {
+		this.id = relacionamento.getId();
+		this.dataInicioSeguimento = relacionamento.getDataInicioSeguimento();
+		this.usuarioSeguidor = relacionamento.getUsuarioSeguidor();
+		this.usuarioSeguido = relacionamento.getUsuarioSeguido();
 	}
 
 	public Long getId() {
@@ -53,25 +59,6 @@ public class SeguidorDTO {
 
 	public void setUsuarioSeguido(Usuario usuarioSeguido) {
 		this.usuarioSeguido = usuarioSeguido;
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(dataInicioSeguimento, id, usuarioSeguido, usuarioSeguidor);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		SeguidorDTO other = (SeguidorDTO) obj;
-		return Objects.equals(dataInicioSeguimento, other.dataInicioSeguimento) && Objects.equals(id, other.id)
-				&& Objects.equals(usuarioSeguido, other.usuarioSeguido)
-				&& Objects.equals(usuarioSeguidor, other.usuarioSeguidor);
 	}
 
 }

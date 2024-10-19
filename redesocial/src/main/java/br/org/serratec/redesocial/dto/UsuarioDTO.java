@@ -3,25 +3,24 @@ package br.org.serratec.redesocial.dto;
 import br.org.serratec.redesocial.domain.Usuario;
 
 public class UsuarioDTO {
-	
+
 	private Long id;
 	private String nome;
 	private String sobrenome;
-	
+
 	public UsuarioDTO() {
-		}
-	 
+	}
+
 	public UsuarioDTO(Long id, String nome, String sobrenome) {
-		super();
 		this.id = id;
 		this.nome = nome;
 		this.sobrenome = sobrenome;
 	}
 
 	public UsuarioDTO(Usuario usuario) {
-        this.id = usuario.getId();
-        this.nome = usuario.getNome();
-        this.sobrenome = usuario.getSobrenome();
+		this.id = usuario.getId();
+		this.nome = usuario.getNome();
+		this.sobrenome = usuario.getSobrenome();
 
 	}
 
@@ -48,5 +47,5 @@ public class UsuarioDTO {
 	public void setSobrenome(String sobrenome) {
 		this.sobrenome = sobrenome;
 	}
-	
+
 }

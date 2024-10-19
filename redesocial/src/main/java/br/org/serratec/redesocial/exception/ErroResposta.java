@@ -4,12 +4,12 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class ErroResposta {
-	
+
 	private Integer status;
 	private String titulo;
 	private LocalDateTime dataHora;
 	private List<String> erros;
-	
+
 	public ErroResposta(Integer status, String titulo, LocalDateTime dataHora, List<String> erros) {
 		this.status = status;
 		this.titulo = titulo;
@@ -48,9 +48,5 @@ public class ErroResposta {
 	public void setErros(List<String> erros) {
 		this.erros = erros;
 	}
-	
-	
-	
-	
 
 }
