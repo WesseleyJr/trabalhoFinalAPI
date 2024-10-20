@@ -13,6 +13,7 @@ import br.org.serratec.redesocial.domain.Post;
 import br.org.serratec.redesocial.domain.Usuario;
 import br.org.serratec.redesocial.dto.PostDTO;
 import br.org.serratec.redesocial.dto.PostInserirDTO;
+import br.org.serratec.redesocial.exception.NotFoundException;
 import br.org.serratec.redesocial.repository.PostRepository;
 import br.org.serratec.redesocial.repository.UsuarioRepository;
 import jakarta.transaction.Transactional;
@@ -34,15 +35,23 @@ public class PostService {
 	
 	
 	public PostDTO buscar(Long id) {
-		Optional<Post> postagemOpt = postRepository.findById(id);
+		Optional<Post> postOpt = postRepository.findById(id);
+		if(!postOpt.isPresent()) {
+			throw new NotFoundException("Postagem não encontrada, ID: " + id);
+		
+	}
 	
 		
-		return new PostDTO(postagemOpt.get());
+		return new PostDTO(postOpt.get());
 	}
 	
 	@Transactional
 	public PostInserirDTO inserir(PostInserirDTO postInserirDTO) {
 		Optional<Usuario> usuarioOpt = usuarioRepository.findById(postInserirDTO.getIdUsuario());
+		if(!usuarioOpt.isPresent()) {
+			throw new NotFoundException("Usuario não encontrado, ID: " + postInserirDTO.getIdUsuario());
+		
+	}
 	
 		Post post = new Post();
 		post.setConteudo(postInserirDTO.getConteudo());
@@ -57,6 +66,15 @@ public class PostService {
 	public PostInserirDTO att(PostInserirDTO postInserirDTO, Long id) {
 		Optional<Post> postOpt = postRepository.findById(id);
 		Optional<Usuario> usuarioOpt = usuarioRepository.findById(postInserirDTO.getIdUsuario());
+		
+		if(!postOpt.isPresent()) {
+			throw new NotFoundException("Postagem não encontrada, ID: " + id);
+		
+	}
+		if(!usuarioOpt.isPresent()) {
+			throw new NotFoundException("Usuario não encontrado, ID: " + postInserirDTO.getIdUsuario());
+		
+	}
 
 
 		Post post = postOpt.get();
@@ -70,6 +88,10 @@ public class PostService {
 	
 	@Transactional
 	public Integer del(Long id) {
+		if(!postRepository.existsById(id)) {
+			throw new NotFoundException("Postagem não encontrada, ID: " + id);
+		
+	}
 
 		postRepository.deleteById(id);
 		return 1;

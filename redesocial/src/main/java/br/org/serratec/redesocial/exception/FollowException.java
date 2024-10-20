@@ -1,11 +1,14 @@
 package br.org.serratec.redesocial.exception;
 
-public class EmailException extends RuntimeException {
+public class FollowException extends RuntimeException {
+
 	
-
 	private static final long serialVersionUID = 1L;
-
-	public EmailException(String message) {
+	
+	public FollowException(String message) {
 		super(message);
 	}
+	
+	
+
 }
