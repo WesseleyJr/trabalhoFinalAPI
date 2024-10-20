@@ -1,28 +1,36 @@
 package br.org.serratec.redesocial.dto;
 
 import java.time.LocalDate;
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import br.org.serratec.redesocial.domain.Comentario;
+import br.org.serratec.redesocial.domain.Post;
 
 public class PostDTO {
-	
+
 	private Long id;
 	private String conteudo;
 	private LocalDate dataCriacao;
-	private Set <Comentario> comentarios;
-	
-	public PostDTO(Long id, String conteudo, LocalDate dataCriacao, Set<Comentario> comentarios) {
-		super();
-		this.id = id;
-		this.conteudo = conteudo;
-		this.dataCriacao = dataCriacao;
-		this.comentarios = comentarios;
-	}
-	
+	private String usuarioNome;
+	private List<ComentarioDTO> comentarios;
+
 	public PostDTO() {
-		
+
+	}
+
+	public PostDTO(Post post) {
+		this.id = post.getId();
+		this.conteudo = post.getConteudo();
+		this.dataCriacao = post.getDataCriacao();
+		this.usuarioNome = post.getUsuario().getNome();
+		this.comentarios = new ArrayList<>();
+		for (Comentario comentario : post.getComentarios()) {
+			this.comentarios.add(new ComentarioDTO(comentario));
+
+		}
+
 	}
 
 	public Long getId() {
@@ -49,30 +57,20 @@ public class PostDTO {
 		this.dataCriacao = dataCriacao;
 	}
 
-	public Set<Comentario> getComentarios() {
+	public List<ComentarioDTO> getComentarios() {
 		return comentarios;
 	}
 
-	public void setComentarios(Set<Comentario> comentarios) {
+	public void setComentarios(List<ComentarioDTO> comentarios) {
 		this.comentarios = comentarios;
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(comentarios, conteudo, dataCriacao, id);
+	public String getUsuarioNome() {
+		return usuarioNome;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		PostDTO other = (PostDTO) obj;
-		return Objects.equals(comentarios, other.comentarios) && Objects.equals(conteudo, other.conteudo)
-				&& Objects.equals(dataCriacao, other.dataCriacao) && Objects.equals(id, other.id);
+	public void setUsuarioNome(String usuarioNome) {
+		this.usuarioNome = usuarioNome;
 	}
 
 }

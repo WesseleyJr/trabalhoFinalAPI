@@ -1,26 +1,24 @@
 package br.org.serratec.redesocial.dto;
 
 import java.time.LocalDate;
-import java.util.Objects;
 
-import br.org.serratec.redesocial.domain.Usuario;
+import br.org.serratec.redesocial.domain.Seguidor;
 
 public class SeguidorDTO {
 	
 	private Long id;
 	private LocalDate dataInicioSeguimento;
-	private Usuario usuarioSeguidor;
-	private Usuario usuarioSeguido;
+	private Long idUsuarioSeguidor;
+	private Long idUsuarioSeguido;
 
 	public SeguidorDTO() {
 	}
 
-	public SeguidorDTO(Long id, LocalDate dataInicioSeguimento, Usuario usuarioSeguidor, Usuario usuarioSeguido) {
-		super();
-		this.id = id;
-		this.dataInicioSeguimento = dataInicioSeguimento;
-		this.usuarioSeguidor = usuarioSeguidor;
-		this.usuarioSeguido = usuarioSeguido;
+	public SeguidorDTO(Seguidor seguidor) {
+		this.id = seguidor.getId();
+		this.dataInicioSeguimento = seguidor.getDataInicioSeguimento();
+		this.idUsuarioSeguidor = seguidor.getUsuarioSeguidor().getId();
+		this.idUsuarioSeguido = seguidor.getUsuarioSeguido().getId();
 	}
 
 	public Long getId() {
@@ -39,39 +37,21 @@ public class SeguidorDTO {
 		this.dataInicioSeguimento = dataInicioSeguimento;
 	}
 
-	public Usuario getUsuarioSeguidor() {
-		return usuarioSeguidor;
+	public Long getIdUsuarioSeguidor() {
+		return idUsuarioSeguidor;
 	}
 
-	public void setUsuarioSeguidor(Usuario usuarioSeguidor) {
-		this.usuarioSeguidor = usuarioSeguidor;
+	public void setIdUsuarioSeguidor(Long idUsuarioSeguidor) {
+		this.idUsuarioSeguidor = idUsuarioSeguidor;
 	}
 
-	public Usuario getUsuarioSeguido() {
-		return usuarioSeguido;
+	public Long getIdUsuarioSeguido() {
+		return idUsuarioSeguido;
 	}
 
-	public void setUsuarioSeguido(Usuario usuarioSeguido) {
-		this.usuarioSeguido = usuarioSeguido;
+	public void setIdUsuarioSeguido(Long idUsuarioSeguido) {
+		this.idUsuarioSeguido = idUsuarioSeguido;
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(dataInicioSeguimento, id, usuarioSeguido, usuarioSeguidor);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		SeguidorDTO other = (SeguidorDTO) obj;
-		return Objects.equals(dataInicioSeguimento, other.dataInicioSeguimento) && Objects.equals(id, other.id)
-				&& Objects.equals(usuarioSeguido, other.usuarioSeguido)
-				&& Objects.equals(usuarioSeguidor, other.usuarioSeguidor);
-	}
-
+	
 }
