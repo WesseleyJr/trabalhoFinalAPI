@@ -4,22 +4,21 @@ import java.time.LocalDate;
 
 import br.org.serratec.redesocial.domain.Comentario;
 
-public class ComentarioDTO {
+public class ComentarioInserirDTO {
 
 	private Long id;
 	private String texto;
-	private String nomeUsuario;
+	private Long idUsuario;
 	private Long idPost;
 	private LocalDate dataComentario;
 
-	public ComentarioDTO() {
-
+	public ComentarioInserirDTO() {
 	}
 
-	public ComentarioDTO(Comentario comentario) {
+	public ComentarioInserirDTO(Comentario comentario) {
 		this.id = comentario.getId();
 		this.texto = comentario.getTexto();
-		this.nomeUsuario = comentario.getUsuario().getNome();
+		this.idUsuario = comentario.getUsuario().getId();
 		this.idPost = comentario.getPost().getId();
 		this.dataComentario = comentario.getDataComentario();
 	}
@@ -40,20 +39,12 @@ public class ComentarioDTO {
 		this.texto = texto;
 	}
 
-	public LocalDate getDataComentario() {
-		return dataComentario;
+	public Long getIdUsuario() {
+		return idUsuario;
 	}
 
-	public void setDataComentario(LocalDate dataComentario) {
-		this.dataComentario = dataComentario;
-	}
-
-	public String getNomeUsuario() {
-		return nomeUsuario;
-	}
-
-	public void setNomeUsuario(String nomeUsuario) {
-		this.nomeUsuario = nomeUsuario;
+	public void setIdUsuario(Long idUsuario) {
+		this.idUsuario = idUsuario;
 	}
 
 	public Long getIdPost() {
@@ -62,6 +53,14 @@ public class ComentarioDTO {
 
 	public void setIdPost(Long idPost) {
 		this.idPost = idPost;
+	}
+
+	public LocalDate getDataComentario() {
+		return dataComentario;
+	}
+
+	public void setDataComentario(LocalDate dataComentario) {
+		this.dataComentario = dataComentario;
 	}
 
 }

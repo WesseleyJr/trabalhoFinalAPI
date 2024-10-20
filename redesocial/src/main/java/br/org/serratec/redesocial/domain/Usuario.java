@@ -1,14 +1,18 @@
 package br.org.serratec.redesocial.domain;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 
@@ -38,18 +42,22 @@ public class Usuario {
 
 	@Column(name = "data_nascimento")
 	private LocalDate dataNascimento;
-	
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioSeguido", fetch = FetchType.EAGER)
+	private List<Seguidor> seguidores = new ArrayList<>();
 
 	public Usuario() {
 	}
 
-	public Usuario(Long id, String nome, String sobrenome, String email, String senha, LocalDate dataNascimento) {
+	public Usuario(Long id, String nome, String sobrenome, String email, String senha, LocalDate dataNascimento,
+			List<Seguidor> seguidores) {
 		this.id = id;
 		this.nome = nome;
 		this.sobrenome = sobrenome;
 		this.email = email;
 		this.senha = senha;
 		this.dataNascimento = dataNascimento;
+		this.seguidores = seguidores;
 	}
 
 	public Long getId() {
@@ -98,6 +106,14 @@ public class Usuario {
 
 	public void setDataNascimento(LocalDate dataNascimento) {
 		this.dataNascimento = dataNascimento;
+	}
+
+	public List<Seguidor> getSeguidores() {
+		return seguidores;
+	}
+
+	public void setSeguidores(List<Seguidor> seguidores) {
+		this.seguidores = seguidores;
 	}
 
 	@Override
