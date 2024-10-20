@@ -14,6 +14,8 @@ import br.org.serratec.redesocial.domain.Post;
 import br.org.serratec.redesocial.domain.Usuario;
 import br.org.serratec.redesocial.dto.ComentarioDTO;
 import br.org.serratec.redesocial.dto.ComentarioInserirDTO;
+import br.org.serratec.redesocial.exception.InvalidDateException;
+import br.org.serratec.redesocial.exception.NotFoundException;
 import br.org.serratec.redesocial.repository.ComentarioRepository;
 import br.org.serratec.redesocial.repository.PostRepository;
 import br.org.serratec.redesocial.repository.UsuarioRepository;
@@ -39,6 +41,11 @@ public class ComentarioService {
 	
 	public ComentarioDTO buscar(Long id) {
 		Optional<Comentario> comentarioOpt = comentarioRepository.findById(id);
+		
+		if(!comentarioOpt.isPresent()) {
+			throw new NotFoundException("Comentário não encontrado, ID: " + id);
+		
+	}
 	
 		ComentarioDTO comentarioDTO = new ComentarioDTO(comentarioOpt.get());
 		return comentarioDTO;
@@ -49,6 +56,20 @@ public class ComentarioService {
 
 		Optional<Usuario> usuarioOpt = usuarioRepository.findById(comentarioInserirDTO.getIdUsuario());
 		Optional<Post> postOpt = postRepository.findById(comentarioInserirDTO.getIdPost());
+		
+		if(!usuarioOpt.isPresent()) {
+			throw new NotFoundException("Usuario não encontrado, ID: " + comentarioInserirDTO.getIdUsuario());
+		
+	}
+		if(!postOpt.isPresent()) {
+			throw new NotFoundException("Postagem não encontrada, ID: " + comentarioInserirDTO.getIdPost());
+		
+	}
+		if (comentarioInserirDTO.getDataComentario().isBefore(postOpt.get().getDataCriacao())) {
+            throw new InvalidDateException("Data do comentario anterior a data da Postagem");
+        }
+		
+		
 
 	
 		Comentario comentario = new Comentario();
@@ -72,6 +93,21 @@ public class ComentarioService {
 		Optional<Comentario> comentarioOpt = comentarioRepository.findById(id);
 		Optional<Usuario> usuarioOpt = usuarioRepository.findById(comentarioInserirDTO.getIdUsuario());
 		Optional<Post> postOpt = postRepository.findById(comentarioInserirDTO.getIdPost());
+		
+		if(!comentarioOpt.isPresent()) {
+			throw new NotFoundException("Comentário não encontrado, ID: " + id);	
+	}
+		if(!usuarioOpt.isPresent()) {
+			throw new NotFoundException("Usuario não encontrado, ID: " + comentarioInserirDTO.getIdUsuario());
+	}
+		if(!postOpt.isPresent()) {
+			throw new NotFoundException("Postagem não encontrada, ID: " + comentarioInserirDTO.getIdPost());
+		
+	}
+		if (comentarioInserirDTO.getDataComentario().isBefore(postOpt.get().getDataCriacao())) {
+            throw new InvalidDateException("Data do comentario anterior a data da Postagem");
+        }
+		
 	
 
 		Comentario comentario = comentarioOpt.get();
@@ -87,6 +123,9 @@ public class ComentarioService {
 	
 	@Transactional
 	public Integer del(Long id) {
+		if(!comentarioRepository.existsById(id)) {
+			throw new NotFoundException("Comentário não encontrado, ID: " + id);	
+	}
 		
 		comentarioRepository.deleteById(id);
 		return 1;
