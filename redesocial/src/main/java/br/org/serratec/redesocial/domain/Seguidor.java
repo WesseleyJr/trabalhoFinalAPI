@@ -4,10 +4,10 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "relacionamento")
+@Table(name = "seguidor")
 public class Seguidor {
 
 	@Id
@@ -15,15 +15,17 @@ public class Seguidor {
 	private Long id;
 
 	@Column(nullable = false)
-	@NotBlank(message = "Preencha o campo!")
+	@NotNull(message = "Preencha a data")
 	private LocalDate dataInicioSeguimento;
 
 	@ManyToOne
-	@JoinColumn(name = "seguidor", nullable = false)
+	@JoinColumn(name = "idSeguidor", nullable = false)
+	@NotNull(message = "Preencha o id do usuario seguidor")
 	private Usuario usuarioSeguidor;
 
 	@ManyToOne
-	@JoinColumn(name = "seguido", nullable = false)
+	@JoinColumn(name = "idSeguido", nullable = false)
+	@NotNull(message = "Preencha o id do usuario seguido")
 	private Usuario usuarioSeguido;
 
 	public Seguidor() {
