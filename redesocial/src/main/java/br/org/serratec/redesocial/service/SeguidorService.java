@@ -60,6 +60,10 @@ public class SeguidorService {
 			throw new FollowException("Você já segue essa pessoa");
 		}
 
+		if (seguidor.getId().equals(seguido.getId())) {
+			throw new FollowException("Você não pode seguir a si mesmmo");
+		}
+
 		Seguidor seg = new Seguidor();
 		seg.setDataInicioSeguimento(seguidorDTO.getDataInicioSeguimento());
 		seg.setUsuarioSeguido(seguido);
@@ -74,14 +78,12 @@ public class SeguidorService {
 	}
 
 	@Transactional
-    public void del(Long id) {
-        if (!seguidorRepository.existsById(id)) {
-            throw new NotFoundException("Relacionamento não encontrado, ID: " + id);
-        }
-        seguidorRepository.deleteById(id);
-    }
-	
-	
+	public void del(Long id) {
+		if (!seguidorRepository.existsById(id)) {
+			throw new NotFoundException("Relacionamento não encontrado, ID: " + id);
+		}
+		seguidorRepository.deleteById(id);
+	}
 
 	public SeguidoUsuarioDTO seguidoresPorUsuario(Long id) {
 		Optional<Seguidor> seguidorOpt = seguidorRepository.findById(id);
