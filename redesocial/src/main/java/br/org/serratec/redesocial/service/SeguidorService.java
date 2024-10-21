@@ -10,6 +10,8 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import br.org.serratec.redesocial.domain.Comentario;
+import br.org.serratec.redesocial.domain.Post;
 import br.org.serratec.redesocial.domain.Seguidor;
 import br.org.serratec.redesocial.domain.Usuario;
 import br.org.serratec.redesocial.dto.SeguidoUsuarioDTO;
@@ -50,15 +52,13 @@ public class SeguidorService {
 			throw new NotFoundException("Usuário seguidor não encontrado, ID: " + seguidorDTO.getIdUsuarioSeguidor());
 
 		}
-		
+
 		Usuario seguido = seguidoOpt.get();
 		Usuario seguidor = seguidorOpt.get();
-		
-		if(seguidorRepository.existsByUsuarioSeguidorAndUsuarioSeguido(seguido, seguidor)) {
-            throw new FollowException("Você já segue essa pessoa");
-        }
-		
-		
+
+		if (seguidorRepository.existsByUsuarioSeguidorAndUsuarioSeguido(seguidor, seguido)) {
+			throw new FollowException("Você já segue essa pessoa");
+		}
 
 		Seguidor seg = new Seguidor();
 		seg.setDataInicioSeguimento(seguidorDTO.getDataInicioSeguimento());
@@ -74,14 +74,14 @@ public class SeguidorService {
 	}
 
 	@Transactional
-	public Integer del(Long id) {
-		if (!seguidorRepository.existsById(id)) {
-			throw new NotFoundException("Relacionamento não encontrado, ID: " + id);
-
-		}
-		seguidorRepository.deleteById(id);
-		return 1;
-	}
+    public void del(Long id) {
+        if (!seguidorRepository.existsById(id)) {
+            throw new NotFoundException("Relacionamento não encontrado, ID: " + id);
+        }
+        seguidorRepository.deleteById(id);
+    }
+	
+	
 
 	public SeguidoUsuarioDTO seguidoresPorUsuario(Long id) {
 		Optional<Seguidor> seguidorOpt = seguidorRepository.findById(id);
