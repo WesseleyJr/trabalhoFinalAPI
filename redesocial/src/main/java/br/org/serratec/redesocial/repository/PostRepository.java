@@ -11,7 +11,7 @@ import br.org.serratec.redesocial.domain.Post;
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long> {
 	
-	@Query("SELECT p FROM POST p WHERE p.id_usuario = :id")
-	Page<Post> BuscarPorUsuario(Long id, Pageable pageable);
+//	@Query("SELECT p FROM POST p WHERE p.id_usuario = :id")
+//	Page<Post> BuscarPorUsuario(Long id, Pageable pageable);
 	
 }

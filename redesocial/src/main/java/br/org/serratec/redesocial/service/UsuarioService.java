@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.org.serratec.redesocial.domain.Usuario;
@@ -23,6 +24,9 @@ public class UsuarioService {
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;
+
+	@Autowired
+	private BCryptPasswordEncoder encoder;
 
 	public Page<UsuarioDTO> findAll(Pageable pageable) {
 		Page<Usuario> usuarios = usuarioRepository.findAll(pageable);
@@ -51,7 +55,7 @@ public class UsuarioService {
 		usuario.setNome(usuarioInserirDTO.getNome());
 		usuario.setSobrenome(usuarioInserirDTO.getSobrenome());
 		usuario.setEmail(usuarioInserirDTO.getEmail());
-		usuario.setSenha(usuarioInserirDTO.getSenha());
+		usuario.setSenha(encoder.encode(usuarioInserirDTO.getSenha()));
 		usuario.setDataNascimento(usuarioInserirDTO.getDataNascimento());
 
 		usuario = usuarioRepository.save(usuario);
@@ -64,7 +68,7 @@ public class UsuarioService {
 	@Transactional
 	public UsuarioInserirDTO att(UsuarioInserirDTO usuarioInserirDTO, Long id) {
 		Optional<Usuario> usuarioOpt = usuarioRepository.findById(id);
-		
+
 		if (!usuarioRepository.existsById(id)) {
 			throw new NotFoundException("Usuario não encontrado, id: " + id);
 		}
@@ -74,9 +78,9 @@ public class UsuarioService {
 		usuario.setEmail(usuarioInserirDTO.getEmail());
 		usuario.setSenha(usuarioInserirDTO.getSenha());
 		usuario.setDataNascimento(usuarioInserirDTO.getDataNascimento());
-		
+
 		usuario = usuarioRepository.save(usuario);
-		
+
 		return usuarioInserirDTO;
 	}
 
