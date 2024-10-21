@@ -6,8 +6,10 @@ import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -16,6 +18,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "post")
@@ -25,22 +28,24 @@ public class Post {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@NotBlank(message = "Campo obrigatório")
+	@NotBlank(message = "Preencha o conteúdo")
 	@Column(nullable = false)
 	private String conteudo;
 
 	@Column
+	@NotNull(message = "Preencha a data")
 	private LocalDate dataCriacao;
 
 	@ManyToOne
 	@JoinColumn(name = "id_usuario")
+	@NotNull(message = "Preencha o id do usuario")
 	private Usuario usuario;
 
-	@OneToMany(mappedBy = "post")
+	@JsonManagedReference
+	@OneToMany(mappedBy = "post", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE, orphanRemoval = true)
 	private List<Comentario> comentarios;
 
-	public Post(Long id, String conteudo, LocalDate dataCriacao,
-			Usuario usuario, List<Comentario> comentarios) {
+	public Post(Long id, String conteudo, LocalDate dataCriacao, Usuario usuario, List<Comentario> comentarios) {
 		this.id = id;
 		this.conteudo = conteudo;
 		this.dataCriacao = dataCriacao;
@@ -49,9 +54,9 @@ public class Post {
 	}
 
 	public Post() {
-		
+
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
