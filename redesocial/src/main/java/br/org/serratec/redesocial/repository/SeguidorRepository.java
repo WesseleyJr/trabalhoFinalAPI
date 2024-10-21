@@ -11,3 +11,5 @@ public interface SeguidorRepository extends JpaRepository<Seguidor, Long>{
 	
 	boolean existsByUsuarioSeguidorAndUsuarioSeguido (Usuario usuarioSeguidor, Usuario usuarioSeguido);
 }
+
+
