@@ -32,46 +32,43 @@ public class ComentarioService {
 
 	@Autowired
 	private PostRepository postRepository;
-	
+
 	public Page<ComentarioDTO> findAll(Pageable pageable) {
 		Page<Comentario> comentarios = comentarioRepository.findAll(pageable);
 		List<ComentarioDTO> comentariosDTO = comentarios.stream().map(ComentarioDTO::new).toList();
 		return new PageImpl<>(comentariosDTO, pageable, comentarios.getTotalElements());
 	}
-	
+
 	public ComentarioDTO buscar(Long id) {
 		Optional<Comentario> comentarioOpt = comentarioRepository.findById(id);
-		
-		if(!comentarioOpt.isPresent()) {
+
+		if (!comentarioOpt.isPresent()) {
 			throw new NotFoundException("Comentário não encontrado, ID: " + id);
-		
-	}
-	
+
+		}
+
 		ComentarioDTO comentarioDTO = new ComentarioDTO(comentarioOpt.get());
 		return comentarioDTO;
 	}
-	
+
 	@Transactional
 	public ComentarioDTO inserir(ComentarioInserirDTO comentarioInserirDTO) {
 
 		Optional<Usuario> usuarioOpt = usuarioRepository.findById(comentarioInserirDTO.getIdUsuario());
 		Optional<Post> postOpt = postRepository.findById(comentarioInserirDTO.getIdPost());
-		
-		if(!usuarioOpt.isPresent()) {
-			throw new NotFoundException("Usuario não encontrado, ID: " + comentarioInserirDTO.getIdUsuario());
-		
-	}
-		if(!postOpt.isPresent()) {
-			throw new NotFoundException("Postagem não encontrada, ID: " + comentarioInserirDTO.getIdPost());
-		
-	}
-		if (comentarioInserirDTO.getDataComentario().isBefore(postOpt.get().getDataCriacao())) {
-            throw new InvalidDateException("Data do comentario anterior a data da Postagem");
-        }
-		
-		
 
-	
+		if (!usuarioOpt.isPresent()) {
+			throw new NotFoundException("Usuario não encontrado, ID: " + comentarioInserirDTO.getIdUsuario());
+
+		}
+		if (!postOpt.isPresent()) {
+			throw new NotFoundException("Postagem não encontrada, ID: " + comentarioInserirDTO.getIdPost());
+
+		}
+		if (comentarioInserirDTO.getDataComentario().isBefore(postOpt.get().getDataCriacao())) {
+			throw new InvalidDateException("Data do comentario anterior a data da Postagem");
+		}
+
 		Comentario comentario = new Comentario();
 		comentario.setTexto(comentarioInserirDTO.getTexto());
 		comentario.setDataComentario(comentarioInserirDTO.getDataComentario());
@@ -86,29 +83,27 @@ public class ComentarioService {
 
 		return comentarioDTO;
 	}
-	
+
 	@Transactional
 	public ComentarioDTO att(ComentarioInserirDTO comentarioInserirDTO, Long id) {
 
 		Optional<Comentario> comentarioOpt = comentarioRepository.findById(id);
 		Optional<Usuario> usuarioOpt = usuarioRepository.findById(comentarioInserirDTO.getIdUsuario());
 		Optional<Post> postOpt = postRepository.findById(comentarioInserirDTO.getIdPost());
-		
-		if(!comentarioOpt.isPresent()) {
-			throw new NotFoundException("Comentário não encontrado, ID: " + id);	
-	}
-		if(!usuarioOpt.isPresent()) {
+
+		if (!comentarioOpt.isPresent()) {
+			throw new NotFoundException("Comentário não encontrado, ID: " + id);
+		}
+		if (!usuarioOpt.isPresent()) {
 			throw new NotFoundException("Usuario não encontrado, ID: " + comentarioInserirDTO.getIdUsuario());
-	}
-		if(!postOpt.isPresent()) {
+		}
+		if (!postOpt.isPresent()) {
 			throw new NotFoundException("Postagem não encontrada, ID: " + comentarioInserirDTO.getIdPost());
-		
-	}
+
+		}
 		if (comentarioInserirDTO.getDataComentario().isBefore(postOpt.get().getDataCriacao())) {
-            throw new InvalidDateException("Data do comentario anterior a data da Postagem");
-        }
-		
-	
+			throw new InvalidDateException("Data do comentario anterior a data da Postagem");
+		}
 
 		Comentario comentario = comentarioOpt.get();
 		comentario.setTexto(comentarioInserirDTO.getTexto());
@@ -120,14 +115,12 @@ public class ComentarioService {
 
 		return comentarioDTO;
 	}
-	
+
 	@Transactional
-	public Integer del(Long id) {
-		if(!comentarioRepository.existsById(id)) {
-			throw new NotFoundException("Comentário não encontrado, ID: " + id);	
-	}
-		
+	public void del(Long id) {
+		if (!comentarioRepository.existsById(id)) {
+			throw new NotFoundException("Comentário não encontrado, ID: " + id);
+		}
 		comentarioRepository.deleteById(id);
-		return 1;
 	}
 }

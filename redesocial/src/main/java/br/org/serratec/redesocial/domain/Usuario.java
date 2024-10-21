@@ -45,7 +45,7 @@ public class Usuario {
 	@NotNull(message = "A data deve ser preenchida!")
 	private LocalDate dataNascimento;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioSeguido", fetch = FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "usuarioSeguido", fetch = FetchType.EAGER, orphanRemoval = true)
 	private List<Seguidor> seguidores = new ArrayList<>();
 
 	public Usuario() {
