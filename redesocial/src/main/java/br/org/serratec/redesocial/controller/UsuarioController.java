@@ -1,6 +1,7 @@
 package br.org.serratec.redesocial.controller;
 
 import java.net.URI;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -62,4 +64,14 @@ public class UsuarioController {
 		return ResponseEntity.ok().build();
 	}
 
+	@GetMapping("/nome")
+	public ResponseEntity<Page<UsuarioDTO>> mostrarPorNome(@RequestParam(defaultValue = "a")String paramNome, Pageable pageable) {
+		return ResponseEntity.ok(usuarioService.buscarPorNome(paramNome, pageable));
+	}
+	
+	@GetMapping("/idade")
+	public ResponseEntity<List<UsuarioDTO>> mostrarPorIdade(@RequestParam ("idadeMin") Integer idadeMin, @RequestParam ("idadeMax") Integer idadeMax) {
+		return ResponseEntity.ok(usuarioService.buscarPorIdade(idadeMin,idadeMax));
+	}
+	
 }
