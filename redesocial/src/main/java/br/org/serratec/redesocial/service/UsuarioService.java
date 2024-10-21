@@ -23,22 +23,11 @@ public class UsuarioService {
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;
-<<<<<<< HEAD
 
 	public Page<UsuarioDTO> findAll(Pageable pageable) {
 		Page<Usuario> usuarios = usuarioRepository.findAll(pageable);
 		List<UsuarioDTO> usuariosDTO = usuarios.stream().map(UsuarioDTO::new).toList();
 		return new PageImpl<>(usuariosDTO, pageable, usuarios.getTotalElements());
-=======
-
-//	@Autowired
-//	private BCryptPasswordEncoder encoder;
-
-	public List<UsuarioDTO> findAll() {
-		List<Usuario> usuarios = usuarioRepository.findAll();
-		List<UsuarioDTO> usuariosDTO = usuarios.stream().map(UsuarioDTO::new).toList();
-		return usuariosDTO;
->>>>>>> 05daefa5641ec9cae839e81988b220c8d0bba05b
 	}
 
 	public UsuarioDTO buscar(Long id) {
@@ -49,7 +38,6 @@ public class UsuarioService {
 		return new UsuarioDTO(usuarioOpt.get());
 	}
 
-<<<<<<< HEAD
 	@Transactional
 	public UsuarioDTO inserir(UsuarioInserirDTO usuarioInserirDTO) throws EmailException, SenhaException {
 		if (!usuarioInserirDTO.getSenha().equals(usuarioInserirDTO.getConfirmaSenha())) {
@@ -59,15 +47,6 @@ public class UsuarioService {
 			throw new EmailException("Email já existente");
 		}
 
-=======
-	public UsuarioDTO inserir(UsuarioInserirDTO user) throws EmailException, SenhaException {
-		if (!user.getSenha().equalsIgnoreCase(user.getConfirmaSenha())) {
-			throw new SenhaException("Senha e Confirma Senha não são iguais");
-		}
-		if (usuarioRepository.findByEmail(user.getEmail()) != null) {
-			throw new EmailException("Email já existente");
-		}
->>>>>>> 05daefa5641ec9cae839e81988b220c8d0bba05b
 		Usuario usuario = new Usuario();
 		usuario.setNome(usuarioInserirDTO.getNome());
 		usuario.setSobrenome(usuarioInserirDTO.getSobrenome());
@@ -82,7 +61,6 @@ public class UsuarioService {
 		return usuarioDTO;
 	}
 
-<<<<<<< HEAD
 	@Transactional
 	public UsuarioInserirDTO att(UsuarioInserirDTO usuarioInserirDTO, Long id) {
 		Optional<Usuario> usuarioOpt = usuarioRepository.findById(id);
@@ -110,6 +88,4 @@ public class UsuarioService {
 		usuarioRepository.deleteById(id);
 	}
 
-=======
->>>>>>> 05daefa5641ec9cae839e81988b220c8d0bba05b
 }

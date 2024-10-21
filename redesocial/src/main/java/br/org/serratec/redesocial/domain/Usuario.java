@@ -1,11 +1,8 @@
 package br.org.serratec.redesocial.domain;
 
 import java.time.LocalDate;
-<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.List;
-=======
->>>>>>> 05daefa5641ec9cae839e81988b220c8d0bba05b
 import java.util.Objects;
 
 import jakarta.persistence.CascadeType;
@@ -47,12 +44,9 @@ public class Usuario {
 	@Column(name = "data_nascimento")
 	@NotNull(message = "A data deve ser preenchida!")
 	private LocalDate dataNascimento;
-<<<<<<< HEAD
 
 	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "usuarioSeguido", fetch = FetchType.EAGER, orphanRemoval = true)
 	private List<Seguidor> seguidores = new ArrayList<>();
-=======
->>>>>>> 05daefa5641ec9cae839e81988b220c8d0bba05b
 
 	public Usuario() {
 	}

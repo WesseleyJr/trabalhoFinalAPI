@@ -11,23 +11,11 @@ public class ComentarioDTO {
 	private String nomeUsuario;
 	private Long idPost;
 	private LocalDate dataComentario;
-<<<<<<< HEAD
-=======
-	private String nomeUsuario;
-
-	public ComentarioDTO(Comentario comentario) {
-		this.id = comentario.getId();
-		this.texto = comentario.getTexto();
-		this.dataComentario = comentario.getDataComentario();
-		this.nomeUsuario = comentario.getUsuario().getNome();
-	}
->>>>>>> 05daefa5641ec9cae839e81988b220c8d0bba05b
 
 	public ComentarioDTO() {
 
 	}
 
-<<<<<<< HEAD
 	public ComentarioDTO(Comentario comentario) {
 		this.id = comentario.getId();
 		this.texto = comentario.getTexto();
@@ -36,8 +24,6 @@ public class ComentarioDTO {
 		this.dataComentario = comentario.getDataComentario();
 	}
 
-=======
->>>>>>> 05daefa5641ec9cae839e81988b220c8d0bba05b
 	public Long getId() {
 		return id;
 	}
@@ -64,13 +50,6 @@ public class ComentarioDTO {
 
 	public String getNomeUsuario() {
 		return nomeUsuario;
-<<<<<<< HEAD
-=======
-	}
-
-	public void setNomeUsuario(String nomeUsuario) {
-		this.nomeUsuario = nomeUsuario;
->>>>>>> 05daefa5641ec9cae839e81988b220c8d0bba05b
 	}
 
 	public void setNomeUsuario(String nomeUsuario) {

@@ -20,11 +20,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.org.serratec.redesocial.domain.Usuario;
 import br.org.serratec.redesocial.dto.UsuarioDTO;
-<<<<<<< HEAD
 import br.org.serratec.redesocial.dto.UsuarioInserirDTO;
-=======
-import br.org.serratec.redesocial.repository.UsuarioRepository;
->>>>>>> 05daefa5641ec9cae839e81988b220c8d0bba05b
 import br.org.serratec.redesocial.service.UsuarioService;
 import jakarta.validation.Valid;
 
@@ -36,7 +32,6 @@ public class UsuarioController {
 	private UsuarioService usuarioService;
 
 	@GetMapping
-<<<<<<< HEAD
 	public ResponseEntity<Page<UsuarioDTO>> listar(@PageableDefault(sort="id", direction = Sort.Direction.ASC, page = 0, size = 5) Pageable pageable) {
 		Page<UsuarioDTO> usuarios = usuarioService.findAll(pageable);
 		return ResponseEntity.ok(usuarios);
@@ -46,19 +41,6 @@ public class UsuarioController {
 	public ResponseEntity<UsuarioDTO> buscar(@PathVariable Long id) {
 		UsuarioDTO usuarioDTO = usuarioService.buscar(id);
 		return ResponseEntity.ok(usuarioDTO);
-=======
-	public ResponseEntity<List<UsuarioDTO>> listar() {
-		return ResponseEntity.ok(usuarioService.findAll());
-	}
-
-	@GetMapping("/{id}")
-	public ResponseEntity<Usuario> buscar(@PathVariable Long id) {
-		Optional<Usuario> usuarioOpt = usuarioService.buscar(id);
-		if (usuarioOpt.isPresent()) {
-			return ResponseEntity.ok(usuarioOpt.get());
-		}
-		return ResponseEntity.notFound().build();
->>>>>>> 05daefa5641ec9cae839e81988b220c8d0bba05b
 	}
 
 	@PostMapping

@@ -38,15 +38,9 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
 		return ResponseEntity.unprocessableEntity().body(ex.getMessage());
 
 	}
-
 	@ExceptionHandler(SenhaException.class)
-<<<<<<< HEAD
 	protected ResponseEntity<Object> handleEmailException(SenhaException ex) {
 	return ResponseEntity.unprocessableEntity().body(ex.getMessage());
-=======
-	protected ResponseEntity<Object> handleEmailExceptoin(SenhaException ex) {
-		return ResponseEntity.unprocessableEntity().body(ex.getMessage());
->>>>>>> 05daefa5641ec9cae839e81988b220c8d0bba05b
 	}
 	
 	@ExceptionHandler(NotFoundException.class)
