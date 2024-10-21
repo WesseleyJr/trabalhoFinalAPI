@@ -21,8 +21,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "post")
-public class Post {
+@Table(name = "postagem")
+public class Postagem {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,11 +41,20 @@ public class Post {
 	@NotNull(message = "Preencha o id do usuario")
 	private Usuario usuario;
 
+<<<<<<< HEAD:redesocial/src/main/java/br/org/serratec/redesocial/domain/Post.java
 	@JsonManagedReference
 	@OneToMany(mappedBy = "post", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE, orphanRemoval = true)
 	private List<Comentario> comentarios;
 
 	public Post(Long id, String conteudo, LocalDate dataCriacao, Usuario usuario, List<Comentario> comentarios) {
+=======
+//	@JsonIgnore
+	@JsonManagedReference
+	@OneToMany(mappedBy = "postagem", fetch = FetchType.EAGER)
+	private List<Comentario> comentarios;
+
+	public Postagem(Long id, String conteudo, LocalDate dataCriacao, Usuario usuario, List<Comentario> comentarios) {
+>>>>>>> 05daefa5641ec9cae839e81988b220c8d0bba05b:redesocial/src/main/java/br/org/serratec/redesocial/domain/Postagem.java
 		this.id = id;
 		this.conteudo = conteudo;
 		this.dataCriacao = dataCriacao;
@@ -53,7 +62,11 @@ public class Post {
 		this.comentarios = comentarios;
 	}
 
+<<<<<<< HEAD:redesocial/src/main/java/br/org/serratec/redesocial/domain/Post.java
 	public Post() {
+=======
+	public Postagem() {
+>>>>>>> 05daefa5641ec9cae839e81988b220c8d0bba05b:redesocial/src/main/java/br/org/serratec/redesocial/domain/Postagem.java
 
 	}
 
@@ -110,7 +123,7 @@ public class Post {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Post other = (Post) obj;
+		Postagem other = (Postagem) obj;
 		return Objects.equals(id, other.id);
 	}
 

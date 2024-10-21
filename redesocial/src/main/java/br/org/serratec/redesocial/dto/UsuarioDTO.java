@@ -9,18 +9,32 @@ public class UsuarioDTO {
 	private Long id;
 	private String nome;
 	private String sobrenome;
+<<<<<<< HEAD
 	private Integer qntSeguidores = 0;
 	private LocalDate dataNascimento;
 
 	public UsuarioDTO() {
+=======
+
+	public UsuarioDTO() {
+	}
+
+	public UsuarioDTO(Long id, String nome, String sobrenome) {
+		this.id = id;
+		this.nome = nome;
+		this.sobrenome = sobrenome;
+>>>>>>> 05daefa5641ec9cae839e81988b220c8d0bba05b
 	}
 
 	public UsuarioDTO(Usuario usuario) {
 		this.id = usuario.getId();
 		this.nome = usuario.getNome();
 		this.sobrenome = usuario.getSobrenome();
+<<<<<<< HEAD
 		this.dataNascimento = usuario.getDataNascimento();
 		this.qntSeguidores = usuario.getSeguidores().size();
+=======
+>>>>>>> 05daefa5641ec9cae839e81988b220c8d0bba05b
 
 	}
 
@@ -48,6 +62,7 @@ public class UsuarioDTO {
 		this.sobrenome = sobrenome;
 	}
 
+<<<<<<< HEAD
 	public Integer getQntSeguidores() {
 		return qntSeguidores;
 	}
@@ -64,4 +79,6 @@ public class UsuarioDTO {
 		this.dataNascimento = dataNascimento;
 	}
 
+=======
+>>>>>>> 05daefa5641ec9cae839e81988b220c8d0bba05b
 }

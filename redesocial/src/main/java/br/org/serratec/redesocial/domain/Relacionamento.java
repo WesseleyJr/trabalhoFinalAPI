@@ -4,18 +4,28 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 import jakarta.persistence.*;
+<<<<<<< HEAD:redesocial/src/main/java/br/org/serratec/redesocial/domain/Seguidor.java
 import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "seguidor")
 public class Seguidor {
+=======
+
+@Entity
+@Table(name = "relacionamento")
+public class Relacionamento {
+>>>>>>> 05daefa5641ec9cae839e81988b220c8d0bba05b:redesocial/src/main/java/br/org/serratec/redesocial/domain/Relacionamento.java
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@Column(nullable = false)
+<<<<<<< HEAD:redesocial/src/main/java/br/org/serratec/redesocial/domain/Seguidor.java
 	@NotNull(message = "Preencha a data")
+=======
+>>>>>>> 05daefa5641ec9cae839e81988b220c8d0bba05b:redesocial/src/main/java/br/org/serratec/redesocial/domain/Relacionamento.java
 	private LocalDate dataInicioSeguimento;
 
 	@ManyToOne
@@ -28,10 +38,10 @@ public class Seguidor {
 	@NotNull(message = "Preencha o id do usuario seguido")
 	private Usuario usuarioSeguido;
 
-	public Seguidor() {
+	public Relacionamento() {
 	}
 
-	public Seguidor(LocalDate dataInicioSeguimento, Usuario usuarioSeguidor, Usuario usuarioSeguido) {
+	public Relacionamento(LocalDate dataInicioSeguimento, Usuario usuarioSeguidor, Usuario usuarioSeguido) {
 		this.dataInicioSeguimento = dataInicioSeguimento;
 		this.usuarioSeguidor = usuarioSeguidor;
 		this.usuarioSeguido = usuarioSeguido;
@@ -82,7 +92,7 @@ public class Seguidor {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Seguidor other = (Seguidor) obj;
+		Relacionamento other = (Relacionamento) obj;
 		return Objects.equals(id, other.id);
 	}
 }

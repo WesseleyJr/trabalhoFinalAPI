@@ -17,16 +17,17 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
-@Table(name="comentario")
+@Table(name = "comentario")
 public class Comentario {
-	
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@NotBlank(message="Insira o texto")
-	@Column(nullable=false)
+
+	@NotBlank(message = "Insira o texto")
+	@Column(nullable = false)
 	private String texto;
+<<<<<<< HEAD
 	
 	@Column(nullable= false)
 	@NotNull(message = "Insira a data")
@@ -38,6 +39,17 @@ public class Comentario {
 	@NotNull(message = "Insira o id da postagem")
 	private Post post;
 	
+=======
+
+	@Column(nullable = false)
+	private LocalDate dataComentario;
+
+	@JsonBackReference
+	@ManyToOne
+	@JoinColumn(name = "id_post")
+	private Postagem postagem;
+
+>>>>>>> 05daefa5641ec9cae839e81988b220c8d0bba05b
 	@ManyToOne
 	@JoinColumn(name = "id_usuario")
 	@NotNull(message = "Insira o id do usuario")
@@ -67,12 +79,12 @@ public class Comentario {
 		this.dataComentario = dataComentario;
 	}
 
-	public Post getPost() {
-		return post;
+	public Postagem getPost() {
+		return postagem;
 	}
 
-	public void setPost(Post post) {
-		this.post = post;
+	public void setPost(Postagem postagem) {
+		this.postagem = postagem;
 	}
 
 	public Usuario getUsuario() {
@@ -98,6 +110,6 @@ public class Comentario {
 			return false;
 		Comentario other = (Comentario) obj;
 		return Objects.equals(id, other.id);
-	}	
+	}
 
 }

@@ -2,7 +2,12 @@ package br.org.serratec.redesocial.dto;
 
 import java.time.LocalDate;
 
+<<<<<<< HEAD
 import br.org.serratec.redesocial.domain.Seguidor;
+=======
+import br.org.serratec.redesocial.domain.Relacionamento;
+import br.org.serratec.redesocial.domain.Usuario;
+>>>>>>> 05daefa5641ec9cae839e81988b220c8d0bba05b
 
 public class SeguidorDTO {
 
@@ -14,6 +19,7 @@ public class SeguidorDTO {
 	public SeguidorDTO() {
 	}
 
+<<<<<<< HEAD
 	public SeguidorDTO(Seguidor seguidor) {
 		this.id = seguidor.getId();
 		this.dataInicioSeguimento = seguidor.getDataInicioSeguimento();
@@ -23,10 +29,20 @@ public class SeguidorDTO {
 
 	public SeguidorDTO(Long id, LocalDate dataInicioSeguimento, Long idUsuarioSeguidor, Long idUsuarioSeguido) {
 		super();
+=======
+	public SeguidorDTO(Long id, LocalDate dataInicioSeguimento, Usuario usuarioSeguidor, Usuario usuarioSeguido) {
+>>>>>>> 05daefa5641ec9cae839e81988b220c8d0bba05b
 		this.id = id;
 		this.dataInicioSeguimento = dataInicioSeguimento;
 		this.idUsuarioSeguidor = idUsuarioSeguidor;
 		this.idUsuarioSeguido = idUsuarioSeguido;
+	}
+
+	public SeguidorDTO(Relacionamento relacionamento) {
+		this.id = relacionamento.getId();
+		this.dataInicioSeguimento = relacionamento.getDataInicioSeguimento();
+		this.usuarioSeguidor = relacionamento.getUsuarioSeguidor();
+		this.usuarioSeguido = relacionamento.getUsuarioSeguido();
 	}
 
 	public Long getId() {
@@ -61,4 +77,8 @@ public class SeguidorDTO {
 		this.idUsuarioSeguido = idUsuarioSeguido;
 	}
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 05daefa5641ec9cae839e81988b220c8d0bba05b
