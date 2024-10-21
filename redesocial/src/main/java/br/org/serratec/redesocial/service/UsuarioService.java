@@ -91,5 +91,17 @@ public class UsuarioService {
 		}
 		usuarioRepository.deleteById(id);
 	}
-
+	
+	public Page<UsuarioDTO> buscarPorNome(String paramNome, Pageable pageable) {
+		Page<UsuarioDTO> usuario = usuarioRepository.buscarPorNome(paramNome, pageable);
+		return usuario;
+		
+	}
+ 
+	
+	public List<UsuarioDTO> buscarPorIdade(Integer idadeMin, Integer idadeMax) {
+		List<UsuarioDTO> usuarios = usuarioRepository.findUsuariosByIdadeBetween(idadeMin, idadeMax);
+		return usuarios;
+	}
+	
 }
