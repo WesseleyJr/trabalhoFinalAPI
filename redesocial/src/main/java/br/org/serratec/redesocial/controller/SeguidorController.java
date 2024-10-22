@@ -28,26 +28,28 @@ public class SeguidorController {
 
 	@Autowired
 	private SeguidorService seguidorService;
-	
+
 	@GetMapping
-	public ResponseEntity<Page<SeguidorDTO>> listar(@PageableDefault(sort="id", direction = Sort.Direction.ASC, page = 0, size = 5) Pageable pageable){
+	public ResponseEntity<Page<SeguidorDTO>> listar(
+			@PageableDefault(sort = "id", direction = Sort.Direction.ASC, page = 0, size = 5) Pageable pageable) {
 		Page<SeguidorDTO> seguidor = seguidorService.findAll(pageable);
 		return ResponseEntity.ok(seguidor);
 	}
-	
+
 	@GetMapping("/{idUsuario}")
-	public ResponseEntity<SeguidoUsuarioDTO> buscarSeguidoresPorUsuario(@PathVariable Long idUsuario){
-		SeguidoUsuarioDTO seguidoUsuarioDTO = seguidorService.seguidoresPorUsuario(idUsuario);	
+	public ResponseEntity<SeguidoUsuarioDTO> buscarSeguidoresPorUsuario(@PathVariable Long idUsuario) {
+		SeguidoUsuarioDTO seguidoUsuarioDTO = seguidorService.seguidoresPorUsuario(idUsuario);
 		return ResponseEntity.ok(seguidoUsuarioDTO);
 	}
-	
+
 	@PostMapping
 	public ResponseEntity<SeguidorDTO> seguir(@Valid @RequestBody SeguidorDTO seguidorDTO) {
 		SeguidorDTO seguidor = seguidorService.seguir(seguidorDTO);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(seguidor.getId()).toUri();
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(seguidor.getId())
+				.toUri();
 		return ResponseEntity.created(uri).body(seguidor);
 	}
-	
+
 	@DeleteMapping("/{id}")
 	public ResponseEntity<SeguidorDTO> deletar(@PathVariable Long id) {
 		seguidorService.del(id);

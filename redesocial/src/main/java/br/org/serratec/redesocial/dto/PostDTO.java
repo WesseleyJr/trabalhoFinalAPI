@@ -3,7 +3,6 @@ package br.org.serratec.redesocial.dto;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import br.org.serratec.redesocial.domain.Comentario;
 import br.org.serratec.redesocial.domain.Post;
@@ -17,7 +16,6 @@ public class PostDTO {
 	private List<ComentarioDTO> comentarios;
 
 	public PostDTO() {
-
 	}
 
 	public PostDTO(Post post) {
@@ -28,9 +26,7 @@ public class PostDTO {
 		this.comentarios = new ArrayList<>();
 		for (Comentario comentario : post.getComentarios()) {
 			this.comentarios.add(new ComentarioDTO(comentario));
-
 		}
-
 	}
 
 	public Long getId() {

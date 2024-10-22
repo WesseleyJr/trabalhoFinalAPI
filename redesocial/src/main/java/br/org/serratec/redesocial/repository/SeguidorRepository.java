@@ -5,13 +5,10 @@ import org.springframework.stereotype.Repository;
 
 import br.org.serratec.redesocial.domain.Seguidor;
 import br.org.serratec.redesocial.domain.Usuario;
-import br.org.serratec.redesocial.dto.SeguidorUsuarioDTO;
 
 @Repository
-public interface SeguidorRepository extends JpaRepository<Seguidor, Long>{
-	
-	boolean existsByUsuarioSeguidorAndUsuarioSeguido (Usuario usuarioSeguidor, Usuario usuarioSeguido);
-	
+public interface SeguidorRepository extends JpaRepository<Seguidor, Long> {
+
+	boolean existsByUsuarioSeguidorAndUsuarioSeguido(Usuario usuarioSeguidor, Usuario usuarioSeguido);
+
 }
-
-

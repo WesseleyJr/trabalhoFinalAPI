@@ -47,7 +47,7 @@ public class Usuario implements UserDetails, Serializable {
 	private String senha;
 
 	@Column(name = "data_nascimento")
-	@NotNull(message = "A data deve ser preenchida!")
+	@NotNull(message = "A data de nascimento deve ser preenchida!")
 	private LocalDate dataNascimento;
 
 	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "usuarioSeguido", fetch = FetchType.EAGER, orphanRemoval = true)
@@ -143,7 +143,6 @@ public class Usuario implements UserDetails, Serializable {
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		List<GrantedAuthority> authorities = new ArrayList<>();
-
 		return authorities;
 	}
 

@@ -13,7 +13,6 @@ public class ComentarioDTO {
 	private LocalDate dataComentario;
 
 	public ComentarioDTO() {
-
 	}
 
 	public ComentarioDTO(Comentario comentario) {

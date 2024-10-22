@@ -37,7 +37,8 @@ public class ConfigSecurity {
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.csrf(csrf -> csrf.disable()).cors((cors) -> cors.configurationSource(corsConfigurationSource()))
 				.authorizeHttpRequests(authorize -> authorize.requestMatchers(HttpMethod.POST, "/usuario").permitAll()
-						.requestMatchers("/h2-console/**").permitAll().requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll().anyRequest().authenticated())
+						.requestMatchers("/h2-console/**").permitAll()
+						.requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll().anyRequest().authenticated())
 				.headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin()))
 				.httpBasic(Customizer.withDefaults())
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));

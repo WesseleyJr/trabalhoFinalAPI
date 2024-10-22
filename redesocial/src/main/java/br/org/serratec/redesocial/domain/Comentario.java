@@ -17,27 +17,27 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
-@Table(name="comentario")
+@Table(name = "comentario")
 public class Comentario {
-	
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@NotBlank(message="Insira o texto")
-	@Column(nullable=false)
+
+	@NotBlank(message = "Insira o texto")
+	@Column(nullable = false)
 	private String texto;
-	
-	@Column(nullable= false)
+
+	@Column(nullable = false)
 	@NotNull(message = "Insira a data")
 	private LocalDate dataComentario;
-	
+
 	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name = "id_post")
 	@NotNull(message = "Insira o id da postagem")
 	private Post post;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_usuario")
 	@NotNull(message = "Insira o id do usuario")
@@ -98,6 +98,6 @@ public class Comentario {
 			return false;
 		Comentario other = (Comentario) obj;
 		return Objects.equals(id, other.id);
-	}	
+	}
 
 }

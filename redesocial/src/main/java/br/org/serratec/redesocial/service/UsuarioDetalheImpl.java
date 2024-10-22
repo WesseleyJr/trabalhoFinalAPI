@@ -10,16 +10,17 @@ import br.org.serratec.redesocial.domain.Usuario;
 import br.org.serratec.redesocial.repository.UsuarioRepository;
 
 @Service
-public class UsuarioDetalheImpl implements UserDetailsService{
-    @Autowired
-    private UsuarioRepository usuarioRepository;
+public class UsuarioDetalheImpl implements UserDetailsService {
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Usuario usuario=usuarioRepository.findByEmail(username);
-        if(usuario==null) {
-            throw new RuntimeException();
-        }
-        return usuario;
-    }
+	@Autowired
+	private UsuarioRepository usuarioRepository;
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		Usuario usuario = usuarioRepository.findByEmail(username);
+		if (usuario == null) {
+			throw new RuntimeException();
+		}
+		return usuario;
+	}
 }

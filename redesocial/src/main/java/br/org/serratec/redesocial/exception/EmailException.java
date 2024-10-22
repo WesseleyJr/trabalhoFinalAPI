@@ -1,7 +1,6 @@
 package br.org.serratec.redesocial.exception;
 
 public class EmailException extends RuntimeException {
-	
 
 	private static final long serialVersionUID = 1L;
 

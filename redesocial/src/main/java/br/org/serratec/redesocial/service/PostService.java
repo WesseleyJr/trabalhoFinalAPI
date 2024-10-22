@@ -37,20 +37,17 @@ public class PostService {
 		Optional<Post> postOpt = postRepository.findById(id);
 		if (!postOpt.isPresent()) {
 			throw new NotFoundException("Postagem não encontrada, ID: " + id);
-
 		}
-
 		return new PostDTO(postOpt.get());
 	}
 
 	@Transactional
 	public PostInserirDTO inserir(PostInserirDTO postInserirDTO) {
 		Optional<Usuario> usuarioOpt = usuarioRepository.findById(postInserirDTO.getIdUsuario());
+
 		if (!usuarioOpt.isPresent()) {
 			throw new NotFoundException("Usuario não encontrado, ID: " + postInserirDTO.getIdUsuario());
-
 		}
-
 		Post post = new Post();
 		post.setConteudo(postInserirDTO.getConteudo());
 		post.setDataCriacao(postInserirDTO.getDataCriacao());
@@ -67,11 +64,9 @@ public class PostService {
 
 		if (!postOpt.isPresent()) {
 			throw new NotFoundException("Postagem não encontrada, ID: " + id);
-
 		}
 		if (!usuarioOpt.isPresent()) {
 			throw new NotFoundException("Usuario não encontrado, ID: " + postInserirDTO.getIdUsuario());
-
 		}
 
 		Post post = postOpt.get();
@@ -87,9 +82,7 @@ public class PostService {
 	public void del(Long id) {
 		if (!postRepository.existsById(id)) {
 			throw new NotFoundException("Postagem não encontrada, ID: " + id);
-
 		}
-
 		postRepository.deleteById(id);
 	}
 

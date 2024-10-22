@@ -30,32 +30,31 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
 				LocalDateTime.now(), erros);
 
 		return super.handleExceptionInternal(ex, erroResposta, headers, status, request);
-
 	}
 
 	@ExceptionHandler(EmailException.class)
 	protected ResponseEntity<Object> handleEmailException(EmailException ex) {
 		return ResponseEntity.unprocessableEntity().body(ex.getMessage());
-
 	}
+
 	@ExceptionHandler(SenhaException.class)
 	protected ResponseEntity<Object> handleEmailException(SenhaException ex) {
-	return ResponseEntity.unprocessableEntity().body(ex.getMessage());
+		return ResponseEntity.unprocessableEntity().body(ex.getMessage());
 	}
-	
+
 	@ExceptionHandler(NotFoundException.class)
 	protected ResponseEntity<Object> handleNotFoundException(NotFoundException ex) {
 		return ResponseEntity.unprocessableEntity().body(ex.getMessage());
 	}
-	
+
 	@ExceptionHandler(FollowException.class)
 	protected ResponseEntity<Object> handleFollowException(FollowException ex) {
 		return ResponseEntity.unprocessableEntity().body(ex.getMessage());
 	}
-	
+
 	@ExceptionHandler(InvalidDateException.class)
-    protected ResponseEntity<Object> handleInvalidDateException(InvalidDateException ex) {
-        return ResponseEntity.unprocessableEntity().body(ex.getMessage());
-    }
+	protected ResponseEntity<Object> handleInvalidDateException(InvalidDateException ex) {
+		return ResponseEntity.unprocessableEntity().body(ex.getMessage());
+	}
 
 }

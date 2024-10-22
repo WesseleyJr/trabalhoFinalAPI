@@ -55,7 +55,6 @@ public class ComentarioController {
 	@PutMapping("/{id}")
 	public ResponseEntity<ComentarioDTO> alterar(@PathVariable Long id,
 			@Valid @RequestBody ComentarioInserirDTO comentarioInserirDTO) {
-
 		ComentarioDTO comentarioDTO = comentarioService.att(comentarioInserirDTO, id);
 		return ResponseEntity.ok(comentarioDTO);
 	}

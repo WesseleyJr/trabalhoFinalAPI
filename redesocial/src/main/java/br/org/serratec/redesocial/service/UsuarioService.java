@@ -59,7 +59,6 @@ public class UsuarioService {
 		usuario.setDataNascimento(usuarioInserirDTO.getDataNascimento());
 
 		usuario = usuarioRepository.save(usuario);
-
 		UsuarioDTO usuarioDTO = new UsuarioDTO(usuario);
 
 		return usuarioDTO;
@@ -72,6 +71,7 @@ public class UsuarioService {
 		if (!usuarioRepository.existsById(id)) {
 			throw new NotFoundException("Usuario não encontrado, id: " + id);
 		}
+
 		Usuario usuario = usuarioOpt.get();
 		usuario.setNome(usuarioInserirDTO.getNome());
 		usuario.setSobrenome(usuarioInserirDTO.getSobrenome());
@@ -91,17 +91,15 @@ public class UsuarioService {
 		}
 		usuarioRepository.deleteById(id);
 	}
-	
+
 	public Page<UsuarioDTO> buscarPorNome(String paramNome, Pageable pageable) {
 		Page<UsuarioDTO> usuario = usuarioRepository.buscarPorNome(paramNome, pageable);
 		return usuario;
-		
 	}
- 
-	
+
 	public List<UsuarioDTO> buscarPorIdade(Integer idadeMin, Integer idadeMax) {
 		List<UsuarioDTO> usuarios = usuarioRepository.findUsuariosByIdadeBetween(idadeMin, idadeMax);
 		return usuarios;
 	}
-	
+
 }

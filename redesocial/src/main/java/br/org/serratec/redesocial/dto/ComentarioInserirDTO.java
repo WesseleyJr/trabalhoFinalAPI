@@ -9,16 +9,16 @@ import jakarta.validation.constraints.NotNull;
 public class ComentarioInserirDTO {
 
 	private Long id;
-	
+
 	@NotBlank(message = "Insira o texto")
 	private String texto;
-	
+
 	@NotNull(message = "Insira o id do usuario")
 	private Long idUsuario;
-	
+
 	@NotNull(message = "Insira o id da postagem")
 	private Long idPost;
-	
+
 	@NotNull(message = "Insira a data")
 	private LocalDate dataComentario;
 

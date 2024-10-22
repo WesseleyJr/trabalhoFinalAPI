@@ -34,7 +34,8 @@ public class UsuarioController {
 	private UsuarioService usuarioService;
 
 	@GetMapping
-	public ResponseEntity<Page<UsuarioDTO>> listar(@PageableDefault(sort="id", direction = Sort.Direction.ASC, page = 0, size = 5) Pageable pageable) {
+	public ResponseEntity<Page<UsuarioDTO>> listar(
+			@PageableDefault(sort = "id", direction = Sort.Direction.ASC, page = 0, size = 5) Pageable pageable) {
 		Page<UsuarioDTO> usuarios = usuarioService.findAll(pageable);
 		return ResponseEntity.ok(usuarios);
 	}
@@ -48,12 +49,14 @@ public class UsuarioController {
 	@PostMapping
 	public ResponseEntity<UsuarioDTO> adicionar(@Valid @RequestBody UsuarioInserirDTO usuarioInserirDTO) {
 		UsuarioDTO usuarioDTO = usuarioService.inserir(usuarioInserirDTO);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(usuarioDTO.getId()).toUri();
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(usuarioDTO.getId())
+				.toUri();
 		return ResponseEntity.created(uri).body(usuarioDTO);
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<UsuarioInserirDTO> atualizar(@PathVariable Long id, @Valid @RequestBody UsuarioInserirDTO usuarioInserirDTO) {
+	public ResponseEntity<UsuarioInserirDTO> atualizar(@PathVariable Long id,
+			@Valid @RequestBody UsuarioInserirDTO usuarioInserirDTO) {
 		UsuarioInserirDTO usuarioInserir = usuarioService.att(usuarioInserirDTO, id);
 		return ResponseEntity.ok(usuarioInserir);
 	}
@@ -65,13 +68,15 @@ public class UsuarioController {
 	}
 
 	@GetMapping("/nome")
-	public ResponseEntity<Page<UsuarioDTO>> mostrarPorNome(@RequestParam(defaultValue = "a")String paramNome, Pageable pageable) {
+	public ResponseEntity<Page<UsuarioDTO>> mostrarPorNome(@RequestParam(defaultValue = "a") String paramNome,
+			Pageable pageable) {
 		return ResponseEntity.ok(usuarioService.buscarPorNome(paramNome, pageable));
 	}
-	
+
 	@GetMapping("/idade")
-	public ResponseEntity<List<UsuarioDTO>> mostrarPorIdade(@RequestParam ("idadeMin") Integer idadeMin, @RequestParam ("idadeMax") Integer idadeMax) {
-		return ResponseEntity.ok(usuarioService.buscarPorIdade(idadeMin,idadeMax));
+	public ResponseEntity<List<UsuarioDTO>> mostrarPorIdade(@RequestParam("idadeMin") Integer idadeMin,
+			@RequestParam("idadeMax") Integer idadeMax) {
+		return ResponseEntity.ok(usuarioService.buscarPorIdade(idadeMin, idadeMax));
 	}
-	
+
 }

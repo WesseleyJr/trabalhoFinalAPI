@@ -21,7 +21,6 @@ public class UsuarioDTO {
 		this.sobrenome = usuario.getSobrenome();
 		this.dataNascimento = usuario.getDataNascimento();
 		this.qntSeguidores = usuario.getSeguidores().size();
-
 	}
 
 	public Long getId() {

@@ -22,7 +22,6 @@ public class SeguidoUsuarioDTO {
 		this.seguidores = new ArrayList<>();
 		for (Seguidor s : seguidor.getUsuarioSeguido().getSeguidores()) {
 			this.seguidores.add(new SeguidorUsuarioDTO(s));
-
 		}
 	}
 

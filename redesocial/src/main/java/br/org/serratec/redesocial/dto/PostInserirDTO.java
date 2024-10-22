@@ -7,18 +7,18 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public class PostInserirDTO {
-	
+
 	private Long id;
-	
+
 	@NotBlank(message = "Preencha o Conteúdo")
 	private String conteudo;
-	
-	@NotNull(message= "Preencha a Data")
+
+	@NotNull(message = "Preencha a Data")
 	private LocalDate dataCriacao;
-	
+
 	@NotNull(message = "Preencha o id do Usuario")
 	private Long idUsuario;
-	
+
 	public PostInserirDTO() {
 	}
 

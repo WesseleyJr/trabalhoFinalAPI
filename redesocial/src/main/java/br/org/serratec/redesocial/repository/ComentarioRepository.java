@@ -7,5 +7,5 @@ import br.org.serratec.redesocial.domain.Comentario;
 
 @Repository
 public interface ComentarioRepository extends JpaRepository<Comentario, Long> {
-	
+
 }

@@ -45,16 +45,15 @@ public class Post {
 	@OneToMany(mappedBy = "post", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE, orphanRemoval = true)
 	private List<Comentario> comentarios;
 
+	public Post() {
+	}
+
 	public Post(Long id, String conteudo, LocalDate dataCriacao, Usuario usuario, List<Comentario> comentarios) {
 		this.id = id;
 		this.conteudo = conteudo;
 		this.dataCriacao = dataCriacao;
 		this.usuario = usuario;
 		this.comentarios = comentarios;
-	}
-
-	public Post() {
-
 	}
 
 	public Long getId() {

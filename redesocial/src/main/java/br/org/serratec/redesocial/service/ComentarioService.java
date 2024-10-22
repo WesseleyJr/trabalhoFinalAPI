@@ -37,7 +37,7 @@ public class ComentarioService {
 
 	@Autowired
 	private SeguidorRepository seguidorRepository;
-	
+
 	public Page<ComentarioDTO> findAll(Pageable pageable) {
 		Page<Comentario> comentarios = comentarioRepository.findAll(pageable);
 		List<ComentarioDTO> comentariosDTO = comentarios.stream().map(ComentarioDTO::new).toList();
@@ -46,59 +46,51 @@ public class ComentarioService {
 
 	public ComentarioDTO buscar(Long id) {
 		Optional<Comentario> comentarioOpt = comentarioRepository.findById(id);
-
 		if (!comentarioOpt.isPresent()) {
 			throw new NotFoundException("Comentário não encontrado, ID: " + id);
-
 		}
-
 		ComentarioDTO comentarioDTO = new ComentarioDTO(comentarioOpt.get());
 		return comentarioDTO;
 	}
 
 	@Transactional
-    public ComentarioDTO inserir(ComentarioInserirDTO comentarioInserirDTO) {
+	public ComentarioDTO inserir(ComentarioInserirDTO comentarioInserirDTO) {
+		Optional<Usuario> usuarioOpt = usuarioRepository.findById(comentarioInserirDTO.getIdUsuario());
+		Optional<Post> postOpt = postRepository.findById(comentarioInserirDTO.getIdPost());
 
-        Optional<Usuario> usuarioOpt = usuarioRepository.findById(comentarioInserirDTO.getIdUsuario());
-        Optional<Post> postOpt = postRepository.findById(comentarioInserirDTO.getIdPost());
+		if (!usuarioOpt.isPresent()) {
+			throw new NotFoundException("Usuario não encontrado, ID: " + comentarioInserirDTO.getIdUsuario());
+		}
+		if (!postOpt.isPresent()) {
+			throw new NotFoundException("Postagem não encontrada, ID: " + comentarioInserirDTO.getIdPost());
+		}
+		if (comentarioInserirDTO.getDataComentario().isBefore(postOpt.get().getDataCriacao())) {
+			throw new InvalidDateException("Data do comentario anterior a data da Postagem");
+		}
 
-        if (!usuarioOpt.isPresent()) {
-            throw new NotFoundException("Usuario não encontrado, ID: " + comentarioInserirDTO.getIdUsuario());
+		Usuario usuarioPost = postOpt.get().getUsuario();
+		Usuario usuarioComentario = usuarioOpt.get();
 
-        }
-        if (!postOpt.isPresent()) {
-            throw new NotFoundException("Postagem não encontrada, ID: " + comentarioInserirDTO.getIdPost());
+		if (seguidorRepository.existsByUsuarioSeguidorAndUsuarioSeguido(usuarioComentario, usuarioPost)
+				|| usuarioPost.getId() == usuarioComentario.getId()) {
+			Comentario comentario = new Comentario();
+			comentario.setTexto(comentarioInserirDTO.getTexto());
+			comentario.setDataComentario(comentarioInserirDTO.getDataComentario());
+			comentario.setUsuario(usuarioOpt.get());
+			comentario.setPost(postOpt.get());
+			comentario = comentarioRepository.save(comentario);
 
-        }
-        if (comentarioInserirDTO.getDataComentario().isBefore(postOpt.get().getDataCriacao())) {
-            throw new InvalidDateException("Data do comentario anterior a data da Postagem");
-        }
+			Post post = postOpt.get();
+			post.getComentarios().add(comentario);
 
-        Usuario usuarioPost = postOpt.get().getUsuario();
-        Usuario usuarioComentario = usuarioOpt.get();
-
-        if (seguidorRepository.existsByUsuarioSeguidorAndUsuarioSeguido(usuarioComentario, usuarioPost) || usuarioPost.getId() == usuarioComentario.getId() ) {
-            Comentario comentario = new Comentario();
-            comentario.setTexto(comentarioInserirDTO.getTexto());
-            comentario.setDataComentario(comentarioInserirDTO.getDataComentario());
-            comentario.setUsuario(usuarioOpt.get());
-            comentario.setPost(postOpt.get());
-            comentario = comentarioRepository.save(comentario);
-
-            Post post = postOpt.get();
-            post.getComentarios().add(comentario);
-
-            ComentarioDTO comentarioDTO = new ComentarioDTO(comentario);
-
-            return comentarioDTO;
-        }
-
-        throw new FollowException("Você não segue essa pessoa");
-    }
+			ComentarioDTO comentarioDTO = new ComentarioDTO(comentario);
+			return comentarioDTO;
+		}
+		throw new FollowException("Você não segue essa pessoa");
+	}
 
 	@Transactional
 	public ComentarioDTO att(ComentarioInserirDTO comentarioInserirDTO, Long id) {
-
 		Optional<Comentario> comentarioOpt = comentarioRepository.findById(id);
 		Optional<Usuario> usuarioOpt = usuarioRepository.findById(comentarioInserirDTO.getIdUsuario());
 		Optional<Post> postOpt = postRepository.findById(comentarioInserirDTO.getIdPost());
@@ -111,7 +103,6 @@ public class ComentarioService {
 		}
 		if (!postOpt.isPresent()) {
 			throw new NotFoundException("Postagem não encontrada, ID: " + comentarioInserirDTO.getIdPost());
-
 		}
 		if (comentarioInserirDTO.getDataComentario().isBefore(postOpt.get().getDataCriacao())) {
 			throw new InvalidDateException("Data do comentario anterior a data da Postagem");
