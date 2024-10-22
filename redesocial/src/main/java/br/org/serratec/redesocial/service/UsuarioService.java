@@ -76,7 +76,7 @@ public class UsuarioService {
 		usuario.setNome(usuarioInserirDTO.getNome());
 		usuario.setSobrenome(usuarioInserirDTO.getSobrenome());
 		usuario.setEmail(usuarioInserirDTO.getEmail());
-		usuario.setSenha(usuarioInserirDTO.getSenha());
+		usuario.setSenha(encoder.encode(usuarioInserirDTO.getSenha()));
 		usuario.setDataNascimento(usuarioInserirDTO.getDataNascimento());
 
 		usuario = usuarioRepository.save(usuario);

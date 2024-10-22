@@ -1,5 +1,6 @@
 package br.org.serratec.redesocial.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -16,6 +17,7 @@ import br.org.serratec.redesocial.domain.Seguidor;
 import br.org.serratec.redesocial.domain.Usuario;
 import br.org.serratec.redesocial.dto.SeguidoUsuarioDTO;
 import br.org.serratec.redesocial.dto.SeguidorDTO;
+import br.org.serratec.redesocial.dto.SeguidorUsuarioDTO;
 import br.org.serratec.redesocial.exception.FollowException;
 import br.org.serratec.redesocial.exception.NotFoundException;
 import br.org.serratec.redesocial.repository.SeguidorRepository;
@@ -86,13 +88,27 @@ public class SeguidorService {
 	}
 
 	public SeguidoUsuarioDTO seguidoresPorUsuario(Long id) {
-		Optional<Seguidor> seguidorOpt = seguidorRepository.findById(id);
-		if (!seguidorOpt.isPresent()) {
+		Optional<Usuario> seguidoOpt = usuarioRepository.findById(id);
+		
+		if (!seguidoOpt.isPresent()) {
 			throw new NotFoundException("Usuário seguido não encontrado, ID: " + id);
-
 		}
-
-		return new SeguidoUsuarioDTO(seguidorOpt.get());
+		Usuario usuario = seguidoOpt.get();
+		
+		SeguidoUsuarioDTO seguido = new SeguidoUsuarioDTO();
+		seguido.setIdUsuarioSeguido(usuario.getId());
+		seguido.setNomeUsuarioSeguido(usuario.getNome());
+		seguido.setSobrenomeUsuarioSeguido(usuario.getSobrenome());
+		List<SeguidorUsuarioDTO> seguidoresDTO = new ArrayList<>();
+		
+		for (Seguidor seguidor : usuario.getSeguidores()) {
+	        SeguidorUsuarioDTO seguidorDTO = new SeguidorUsuarioDTO(seguidor);
+	        seguidoresDTO.add(seguidorDTO);
+	    }
+		
+		seguido.setSeguidores(seguidoresDTO);
+		return seguido;
+		
 
 	}
 }
