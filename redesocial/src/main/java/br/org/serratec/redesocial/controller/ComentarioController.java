@@ -62,6 +62,6 @@ public class ComentarioController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Comentario> deletar(@PathVariable Long id) {
 		comentarioService.del(id);
-		return ResponseEntity.ok().build();
+		return ResponseEntity.noContent().build();
 	}
 }

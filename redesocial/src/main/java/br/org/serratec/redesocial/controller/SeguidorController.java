@@ -53,6 +53,6 @@ public class SeguidorController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<SeguidorDTO> deletar(@PathVariable Long id) {
 		seguidorService.del(id);
-		return ResponseEntity.ok().build();
+		return ResponseEntity.noContent().build();
 	}
 }

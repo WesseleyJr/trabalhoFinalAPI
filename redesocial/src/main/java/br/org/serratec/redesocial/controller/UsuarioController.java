@@ -64,7 +64,7 @@ public class UsuarioController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Usuario> deletar(@PathVariable Long id) {
 		usuarioService.del(id);
-		return ResponseEntity.ok().build();
+		return ResponseEntity.noContent().build();
 	}
 
 	@GetMapping("/nome")
